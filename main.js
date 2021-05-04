@@ -14,6 +14,8 @@
 // ### Créer deux instances de Personnage et faites leur chacun [prendre] un objet de la boite avec leur méthode.
 // ### Ensuite faites acheter à l'un des deux, l'objet de l'autre.
 
+
+
 class Objet {
     constructor (nom, prix) {
         this.nom = nom,
@@ -21,39 +23,37 @@ class Objet {
     }
 }
 
-let objet1 = new Objet ("voiture téléguidée", 42);
-let objet2 = new Objet ("tenue de camouflage", 66);
-
-let tableau = [];
-tableau.push(objet1, objet2);
-console.log(tableau);
+let lampe = new Objet ("lampre", 15);
+let torche = new Objet ("torche", 5);
+let boite = [lampe , torche];
 
 class Personnage {
     constructor (nom, sac, argent) {
         this.nom = nom,
         this.sac = sac,
-        this.argent = argent,
-        this.prendre = (obj) => {
-            this.sac.push(obj);
-            tableau.splice(tableau.indexOf(obj),1)
-        };
-        this.acheter = (vendeur, obj) => {
-            if (this.argent >= obj.prix) {
-                this.sac.push(vendeur.sac.indexOf(obj));
-                vendeur.sac.pop();
-                vendeur.argent = vendeur.argent+obj.prix
-                this.argent = this.argent - obj.prix
-            } else {
-                return console.log("ciao")
-            }
+        this.argent = argent
+    }
+    prendre(objet){
+        this.sac.push(boite[boite.indexOf(objet)]);
+        boite.splice(boite.indexOf(objet),1);
+    }
+    acheter(vendeur, objet){
+        if (this.argent >= vendeur.sac[vendeur.sac.indexOf(objet)].prix) {
+            this.sac.push[vendeur.sac.indexOf(objet)];
+            this.argent = this.argent - vendeur.sac[vendeur.sac.indexOf(objet)].prix;
+            vendeur.argent = vendeur.argent + vendeur.sac[vendeur.sac.indexOf(objet)].prix;
+        } else {
+            console.log("vas travailler frr");
         }
     }
 }
 
-let perso1 = new Personnage ("Joseph", [], 10);
-let perso2 = new Personnage ("Yves", [], 100);
+let ylias = new Personnage ("Ylias", [], 50);
+let cactus = new Personnage ("Cactus", [], 50);
 
-perso1.acheter(perso2,objet1);
-perso2.prendre(objet1)
+ylias.prendre(torche);
+console.log(cactus);
+cactus.acheter(ylias, torche)
 
-console.log(perso2)
+console.log(cactus);
+console.log(ylias);
